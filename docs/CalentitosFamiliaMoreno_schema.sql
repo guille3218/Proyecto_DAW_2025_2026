@@ -80,7 +80,7 @@ CREATE TABLE pedidos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     usuario_id INT NOT NULL,
     numero_pedido VARCHAR(20) UNIQUE NOT NULL,
-    estado ENUM('pendiente', 'confirmado', 'preparando', 'enviado', 'entregado', 'cancelado') DEFAULT 'pendiente',
+    estado ENUM('pendiente', 'confirmado', 'preparando', 'listo', 'entregado', 'cancelado') DEFAULT 'pendiente',
     subtotal DECIMAL(10, 2) NOT NULL,
     total DECIMAL(10, 2) NOT NULL,
     metodo_pago ENUM('efectivo', 'tarjeta', 'transferencia', 'bizum') NOT NULL,
@@ -114,26 +114,3 @@ CREATE TABLE pedido_detalles (
     INDEX idx_pedido_id (pedido_id),
     INDEX idx_producto_id (producto_id)
 ) ENGINE=InnoDB;
-
--- =====================================================
--- DATOS DE EJEMPLO
--- =====================================================
-
--- Insertar usuarios de ejemplo
-INSERT INTO usuarios (nombre, apellidos, email, telefono, direccion, rol) VALUES
-('Juan', 'Pérez García', 'juan.perez@email.com', '612345678', 'Calle Mayor 123, Madrid', 'cliente'),
-('María', 'González López', 'maria.gonzalez@email.com', '687654321', 'Avenida Libertad 45, Barcelona', 'cliente'),
-('Admin', 'Sistema', 'admin@calentitos.com', '600000000', 'Sede Central', 'admin');
-
--- Insertar autenticación para los usuarios
-INSERT INTO auth (usuario_id, username, password_hash) VALUES
-(1, 'juanperez', '$2y$10$example_hash_1'),
-(2, 'mariagonzalez', '$2y$10$example_hash_2'),
-(3, 'admin', '$2y$10$example_hash_admin');
-
--- Insertar productos de ejemplo
-INSERT INTO productos (nombre, descripcion, precio, categoria, codigo_sku, stock_actual) VALUES
-('Calentito Familiar Especial', 'Calentito casero con ingredientes tradicionales de la familia Moreno', 12.50, 'Platos Principales', 'CAL-FAM-001', 50),
-('Calentito Vegetariano', 'Delicioso calentito con verduras frescas de temporada', 10.00, 'Platos Principales', 'CAL-VEG-001', 30),
-('Bebida Tradicional', 'Bebida artesanal de la casa', 3.50, 'Bebidas', 'BEB-TRAD-001', 100),
-('Postre Casero', 'Postre tradicional de la familia', 5.00, 'Postres', 'POS-CAS-001', 25);
